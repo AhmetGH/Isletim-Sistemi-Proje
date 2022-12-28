@@ -9,9 +9,17 @@ import java.util.Scanner;
 
 public class Kuyruk {
 
+    ArrayList<Process> pio1Evrensel;
+    ArrayList<Process> pio2Evrensel;
+    ArrayList<Process> pio3Evrensel;
 
-    public static int satirsayisi(File f) throws FileNotFoundException {
+    public Kuyruk() {
+        pio1Evrensel = new ArrayList<Process>();
+        pio2Evrensel = new ArrayList<Process>();
+        pio3Evrensel = new ArrayList<Process>();
+    }
 
+    public static int satirsayisi(File f) throws FileNotFoundException {  //Programın satır sayısı bulunur ve işlenmek için
 
         Scanner dosya = new Scanner(f);
         int satir = 0;
@@ -26,7 +34,7 @@ public class Kuyruk {
     }
 
     public int donguSayisi() throws FileNotFoundException {
-        File f = new File("C:\\Users\\Ozzen\\OneDrive\\Masaüstü\\asdasdsa\\IsletimSistemiProje\\src\\Proje\\giriş.txt");
+        File f = new File("giris.txt");
 
         int sayac= satirsayisi(f);
         int donmeSayaci =0;
@@ -46,37 +54,23 @@ public class Kuyruk {
                 dizisatir++;
 
             }
-
             donmeSayaci += dizi[satir][2];
-
         }
         dosya.close();
 
         return donmeSayaci;
     }
     public ArrayList<Process> nesneolustur() throws FileNotFoundException {
-        /*
 
-
-        STABLE ARRAYLİST YAP
-
-
-         */
-
-        File f = new File("C:\\Users\\Ozzen\\OneDrive\\Masaüstü\\asdasdsa\\IsletimSistemiProje\\src\\Proje\\giriş.txt");
-
+        File f = new File("giris.txt");
         int donmeSayaci=0;
-
         Scanner dosyaIslem = new Scanner(f);
         int satir = satirsayisi(f);
-
 
         int sayac = 0;
         int[][] dizi = new int[satir][6];
 
-
         Process[] stable = new Process[satir];
-
 
         while (dosyaIslem.hasNextLine()) {
             String satirstring = dosyaIslem.nextLine();
@@ -86,9 +80,7 @@ public class Kuyruk {
             for (String arrSplit1 : arrSplit) {
 
                 dizi[sayac][dizisatir] = Integer.parseInt(arrSplit1);
-
                 dizisatir++;
-
             }
             dizi[sayac][0] = sayac;
 
@@ -96,38 +88,16 @@ public class Kuyruk {
             dizi[sayac][5] = -1;
             Process kukla = new Process(dizi[sayac]);
             stable[sayac] = kukla;
-            //ver.add(kukla);
-            //System.out.println(stable[sayac]);
             donmeSayaci += dizi[sayac][3];
             sayac++;
         }
-        /*
-        System.out.println();
-
-        for(int i = 0; i<satir; i++) {
-          for(int j = 0; j<4;j++) {
-
-               System.out.println(dizi[i][j]);
-           }
-           System.out.println("\n");
-        }*/
         ArrayList<Process> ver = new ArrayList<Process>(Arrays.asList(stable));
         return ver;
     }
 
     public ArrayList<Process> varisZamaniBelirle(ArrayList<Process> kuyruk, int saniye) {
 
-
         ArrayList<Process> araci = new ArrayList<Process>();
-        /*
-        int sayac=0;
-        for (Process eleman:kuyruk) {
-            if (eleman.varisZamani == saniye) {
-                sayac++;
-            }
-        }
-        Process[] araci= new Process[sayac];
-        */
 
         for (Process eleman : kuyruk) {
             if (eleman.varisZamani == saniye) {
@@ -152,49 +122,50 @@ public class Kuyruk {
                     break;
             }
         }
-        ArrayList<ArrayList> listeFull = new ArrayList<ArrayList>();
+        ArrayList<ArrayList> listeFull = new ArrayList<ArrayList>();   //Process ve ArrayList<Process> i ArrayList<ArrayList> in içinde kapsüllendi
         listeFull.add(realTimeLastList);
         listeFull.add(userJobLastList);
         listeFull.set(0, realTimeLastList);
         listeFull.set(1, userJobLastList);
-        return listeFull;
+        return listeFull;                       //Kapsüllenen veri Uygulamaya gönderildi.
     }
 
+    //Ekran fonksiyonu ile yapılan işemler görüntülenir.
     public void ekran(int saniye, int Statament, Process activeProcess) {
 
         // 0 başladı / 1 yürütülüyor / 2 askıda / 3 sonlandı / 4 zamanaşımı
         switch (Statament) {
             case 0:
-                System.out.println(saniye + " sn process başladı\t\t(id:" + activeProcess.Id + "\töncelik:" + activeProcess.oncelik + "\tkalan süre:" + activeProcess.calismaZamani + " sn aşımZamanı:" + activeProcess.asimZamani +"  Flag:"+ activeProcess.flag+" )");
+                System.out.println(saniye + " sn process başladı\t\t(id:" + activeProcess.Id + "\töncelik:" + activeProcess.oncelik + "\tkalan süre:" + activeProcess.calismaZamani +")");
                 break;
             case 1:
-                System.out.println(saniye + " sn process yürütülüyor\t\t(id:" + activeProcess.Id + "\töncelik:" + activeProcess.oncelik + "\tkalan süre:" + activeProcess.calismaZamani + " sn aşımZamanı:" + activeProcess.asimZamani +"  Flag:"+ activeProcess.flag+" )");
+                System.out.println(saniye + " sn process yürütülüyor\t(id:" + activeProcess.Id + "\töncelik:" + activeProcess.oncelik + "\tkalan süre:" + activeProcess.calismaZamani+")" );
                 break;
             case 2:
-                System.out.println(saniye + " sn process askıda\t\t\t(id:" + activeProcess.Id + "\töncelik:" + activeProcess.oncelik + "\tkalan süre:" + activeProcess.calismaZamani + " sn aşımZamanı:" + activeProcess.asimZamani +"  Flag:"+ activeProcess.flag+" )");
+                System.out.println(saniye + " sn process askıda\t\t(id:" + activeProcess.Id + "\töncelik:" + activeProcess.oncelik + "\tkalan süre:" + activeProcess.calismaZamani+")");
                 break;
             case 3:
-                System.out.println(saniye + " sn process sonlandı\t\t(id:" + activeProcess.Id + "\töncelik:" + activeProcess.oncelik + "\tkalan süre:" + activeProcess.calismaZamani + " sn aşımZamanı:" + activeProcess.asimZamani +"  Flag:"+ activeProcess.flag+" )");
+                System.out.println(saniye + " sn process sonlandı\t\t(id:" + activeProcess.Id + "\töncelik:" + activeProcess.oncelik + "\tkalan süre:" + activeProcess.calismaZamani+")" );
                 break;
             case 4:
-                System.out.println(saniye + " sn process zamanaşımı\t\t(id:" + activeProcess.Id + "\töncelik:" + activeProcess.oncelik + "\tkalan süre:" + activeProcess.calismaZamani + " sn aşımZamanı:" + activeProcess.asimZamani +"  Flag:"+ activeProcess.flag+" )");
+                System.out.println(saniye + " sn process zamanaşımı\t\t(id:" + activeProcess.Id + "\töncelik:" + activeProcess.oncelik + "\tkalan süre:" + activeProcess.calismaZamani+")" );
                 break;
         }
     }
 
-    public ArrayList<ArrayList> realTime(ArrayList<Process> realTimeLastList, Process activeProcess, int saniye) {
+
+    //realTime kuyruğu 0 öncelikli prosesleri dökümanda verildiği gibi işler.
+    public Process realTime(ArrayList<Process> realTimeLastList, Process activeProcess, int saniye) {
 
 
-        if (activeProcess.Id == -1) {
+        if (activeProcess.Id == -1) {                       //Eğer çekilen veri ilk proses ise proses başlatılır.
             activeProcess = realTimeLastList.get(0);
-            //activeProcess.Id = realTimeLastList.get(0).Id;
             ekran(saniye, 0, activeProcess);
             activeProcess.calismaZamani -= 1;
-
-        } else if ((activeProcess.oncelik == 0) && (activeProcess.calismaZamani != 0)) {
+        } else if ((activeProcess.oncelik == 0) && (activeProcess.calismaZamani != 0)) {   //Veri çalışma süresi var ise Yürütülür
             ekran(saniye, 1, activeProcess);
             activeProcess.calismaZamani -= 1;
-        } else if ((activeProcess.oncelik == 0) && (activeProcess.calismaZamani == 0)) {
+        } else if ((activeProcess.oncelik == 0) && (activeProcess.calismaZamani == 0)) {    //Veri çalışma süresi kalmadı ise Sonlandırılır.
             ekran(saniye, 3, activeProcess);
             realTimeLastList.remove(0);
             if (!realTimeLastList.isEmpty()) {
@@ -202,45 +173,28 @@ public class Kuyruk {
                 ekran(saniye, 0, activeProcess);
                 activeProcess.calismaZamani -= 1;
             }
-        } else {//onceligi 0 dan farklı olanlar girecek
-            //flag true olacak
-            //saniye degeri asimzamanina atilir.
-            //aktifprocess realtime ile degiscek
-
-            activeProcess.asimZamani = saniye;
+        } else {                                                //Proses önceliği 0 olmayan bir prosesten gelirse gelen proses askıya alınır.
+            activeProcess.asimZamani = saniye;                  //Ardından Gerçek zamanlı proses Başlatılır.
             ekran(saniye, 2, activeProcess);
-
-            /*if (activeProcess.oncelik != 3 && activeProcess.oncelik++ !=3) {
-                activeProcess.oncelik++;
-            }*/
             activeProcess = realTimeLastList.get(0);
             ekran(saniye, 0, activeProcess);
             activeProcess.calismaZamani--;
-
         }
 
-        pio1Evrensel = zamanAsimiKontrol(pio1Evrensel,saniye);
-        pio2Evrensel = zamanAsimiKontrol(pio2Evrensel,saniye);
+        pio1Evrensel = zamanAsimiKontrol(pio1Evrensel,saniye);              //Öncelik sıralamasına göre dağıtılmış verileri Zamanaşımına uğradığının
+        pio2Evrensel = zamanAsimiKontrol(pio2Evrensel,saniye);              //kontrolü yapılır.
         pio3Evrensel = zamanAsimiKontrol(pio3Evrensel,saniye);
 
-        ArrayList<ArrayList> realTimeReturn = new ArrayList<ArrayList>();
-        ArrayList<Process> processArray = new ArrayList<Process>();
-        processArray.add(activeProcess);
-        realTimeReturn.add(processArray);
-        realTimeReturn.add(realTimeLastList);
-        realTimeReturn.set(0, realTimeLastList);
-        realTimeReturn.set(1, processArray);
-
-        return realTimeReturn;
-
+        return activeProcess;
     }
 
-    public ArrayList<ArrayList> UserjobQueue(ArrayList<Process> userJobList, Process activeProcess, int saniye) {
 
-        //System.out.println(userJobList);
-        //System.out.println("UserjobQueue veri...");
 
-        for (Process processler : userJobList) {
+
+    //UserjobQueue kuyruğu 1,2 ve 3 öncelikli prosesleri dökümanda verildiği gibi işler.
+    public Process UserjobQueue(ArrayList<Process> userJobList, Process activeProcess, int saniye) {
+
+        for (Process processler : userJobList) {            //Öncelik sırasına göre Kodlar priority kısımlarına dağıtılır.
             if (processler.oncelik == 1) {
                 pio1Evrensel.add(processler);
             } else if (processler.oncelik == 2) {
@@ -250,35 +204,28 @@ public class Kuyruk {
             }
         }
 
-
-        if (!pio1Evrensel.isEmpty()) {
+        if (!pio1Evrensel.isEmpty()) {              //1 Öncelikli proses var ise ilk önce çalıştırılır.
             if(activeProcess.oncelik!=0 &&activeProcess.oncelik!=-1  && activeProcess.calismaZamani!=0){ekran(saniye, 2, activeProcess);}
-            activeProcess.asimZamani=saniye;
+            activeProcess.asimZamani=saniye;        //Zaman aşımı kontrolü için güncelleme yapılır.
             activeProcess = pio1Evrensel.get(0);
             pio1Evrensel.remove(0);
-            if ((activeProcess.calismaZamani - 1) > 0) {
-                ekran(saniye, 0, activeProcess);
-                activeProcess.calismaZamani--;
+            if ((activeProcess.calismaZamani - 1) > 0) {        //Prosesin çalışma zamanına göre 3 satırda işenir
+                ekran(saniye, 0, activeProcess);        // eğer proses sonlanma süresi bitmediyse önceliği arttırılarak
+                activeProcess.calismaZamani--;                  //priority 2 ye atılır.
                 activeProcess.oncelik++;
-                //activeProcess.asimZamani=saniye;
                 pio2Evrensel.add(activeProcess);
-                //ekran(saniye, 2, activeProcess);
-            } else if(activeProcess.calismaZamani==1){
-
+            } else if(activeProcess.calismaZamani==1){           //Procesin çalışma zamanı 1 saniye ise proses sonlandırılır.
                 ekran(saniye, 0,activeProcess);
-
                 activeProcess.calismaZamani--;
                 activeProcess.oncelik++;
                 ekran(saniye, 3,activeProcess);
-
             }else {
                 activeProcess.calismaZamani--;
                 activeProcess.oncelik++;
                 ekran(saniye, 3, activeProcess);
-
             }
 
-        } else if (!pio2Evrensel.isEmpty()) {
+        } else if (!pio2Evrensel.isEmpty()) {       //1 Öncelikli proses var ise bitmesini bekler ve bittiğinde çalıştırılır.
             if(activeProcess.oncelik!=0 &&activeProcess.oncelik!=-1 && activeProcess.calismaZamani!=0){ekran(saniye, 2, activeProcess);}
             activeProcess.asimZamani=saniye;
             activeProcess = pio2Evrensel.get(0);
@@ -291,20 +238,18 @@ public class Kuyruk {
                 pio3Evrensel.add(activeProcess);
                 //ekran(saniye, 2, activeProcess);
             }else if(activeProcess.calismaZamani==1){
-
                 ekran(saniye, 0,activeProcess);
-
                 activeProcess.calismaZamani--;
                 activeProcess.oncelik++;
                 ekran(saniye, 3,activeProcess);
-
             }
             else {
                 activeProcess.calismaZamani--;
                 activeProcess.oncelik++;
                 ekran(saniye, 3, activeProcess);
             }
-        } else if (!pio3Evrensel.isEmpty()) {
+
+        } else if (!pio3Evrensel.isEmpty()) {        //1 ve 2 Öncelikli proses var ise bitmesini bekler ve bittiğinde çalıştırılır.
             if(activeProcess.oncelik!=0 &&activeProcess.oncelik!=-1  && activeProcess.calismaZamani!=0){ekran(saniye, 2, activeProcess);}
             activeProcess.asimZamani=saniye;
             activeProcess = pio3Evrensel.get(0);
@@ -319,7 +264,6 @@ public class Kuyruk {
                 ekran(saniye, 0,activeProcess);
                 activeProcess.calismaZamani--;
                 ekran(saniye+1, 3,activeProcess);
-
             }
             else {
                 activeProcess.calismaZamani--;
@@ -327,44 +271,14 @@ public class Kuyruk {
             }
         }
 
-
-        for ( var item:userJobList ) {
-            if(item.Id==activeProcess.Id){
-                item = activeProcess;
-            }
-        }
-
-
-        //ArrayList<ArrayList> zamanAsimi = new ArrayList<ArrayList>();
-
         pio1Evrensel = zamanAsimiKontrol(pio1Evrensel,saniye);
         pio2Evrensel = zamanAsimiKontrol(pio2Evrensel,saniye);
         pio3Evrensel = zamanAsimiKontrol(pio3Evrensel,saniye);
 
-
-        ArrayList<ArrayList> userJobReturn = new ArrayList<ArrayList>();
-        ArrayList<Process> processArray = new ArrayList<Process>();
-        processArray.add(activeProcess);
-        userJobReturn.add(processArray);
-        userJobReturn.add(userJobList);
-        userJobReturn.set(0, userJobList);
-        userJobReturn.set(1, processArray);
-
-
-        return userJobReturn;
-
+        return activeProcess;
     }
 
-    ArrayList<Process> pio1Evrensel;
-    ArrayList<Process> pio2Evrensel;
-    ArrayList<Process> pio3Evrensel;
-
-    public Kuyruk() {
-        pio1Evrensel = new ArrayList<Process>();
-        pio2Evrensel = new ArrayList<Process>();
-        pio3Evrensel = new ArrayList<Process>();
-    }
-
+    //zamanAsimiKontrol fonksiyonunda zaman aşımına uğrayan bir  fonksiyon var ise belirlenir ve silinir.
     public ArrayList<Process> zamanAsimiKontrol(ArrayList<Process> list,int saniye) {
         int i = list.size();
             if(i==0) return list;
@@ -377,42 +291,8 @@ public class Kuyruk {
                 if (list.size() == 0) {
                     break;
                 }
-
             }
-
-            /*for (Process item : list) {
-                if (saniye - item.asimZamani == 20 && item.asimZamani != -1) {
-                    ekran(saniye, 4, item);
-                    list.remove(item);
-                    if (list.size() == 0) {
-                        break;
-                    }
-                }
-
-        }*/
         }
         return list;
     }
 }
-
-
-// BUNLARI KALDIR BURADAN SONRA
-    /*public Process pio1F(ArrayList<Process> pio1List, Process activeProcess){
-
-        if(pio1Evrensel.isEmpty()){
-            for (Process eleman:pio1List) {
-                pio1Evrensel.add(eleman);
-            }
-        }else if (!pio1Evrensel.isEmpty()){
-            activeProcess = pio1Evrensel.get(0);
-        }
-        return activeProcess;
-    }
-    public ArrayList<Process> pio2F(ArrayList<Process> pio2List){
-
-    }
-    public ArrayList<Process> pio3F(ArrayList<Process> pio3List){
-
-    }
-}
-*/

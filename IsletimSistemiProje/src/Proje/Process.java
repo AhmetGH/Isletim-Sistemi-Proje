@@ -1,4 +1,5 @@
 package Proje;
+import java.util.Random;
 
 public class Process {
 
@@ -6,15 +7,7 @@ public class Process {
     int varisZamani;
     int calismaZamani;
     int oncelik;
-    int flag;
     int asimZamani;
-    public int isFlag() {
-        return flag;
-    }
-
-    public void setFlag(int flag) {
-        this.flag = flag;
-    }
 
     public int getAsimZamani() {
         return asimZamani;
@@ -32,9 +25,8 @@ public class Process {
     @Override
     public String toString() {
         return "process [Id=" + Id + ", varisZamani=" + varisZamani + ", calismaZamani=" + calismaZamani + ", oncelik="
-                + oncelik +", flag="+ flag + ", asimZamani="+ asimZamani + "]";
+                + oncelik + ", asimZamani="+ asimZamani + "]";
     }
-
     public void setVarisZamani(int varisZamani) {
         this.varisZamani = varisZamani;
     }
@@ -65,13 +57,11 @@ public class Process {
 
     public Process (int[] dizi ){
 
-
         this.Id=dizi[0];
         this.varisZamani=dizi[1];
         this.oncelik=dizi[2];
         this.calismaZamani=dizi[3];
-        this.flag = dizi[4];
-        this.asimZamani = dizi[5];
+        this.asimZamani = dizi[4];
 
 
     }
