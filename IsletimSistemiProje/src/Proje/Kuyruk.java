@@ -33,8 +33,8 @@ public class Kuyruk {
         return satir;
     }
 
-    public int donguSayisi() throws FileNotFoundException {
-        File f = new File("giris.txt");
+    public int donguSayisi(String dosyaYolu) throws FileNotFoundException {
+        File f = new File(dosyaYolu);
 
         int sayac= satirsayisi(f);
         int donmeSayaci =0;
@@ -60,7 +60,7 @@ public class Kuyruk {
 
         return donmeSayaci;
     }
-    public ArrayList<Process> nesneolustur() throws FileNotFoundException {
+    public ArrayList<Process> nesneolustur(String dosyaYolu) throws FileNotFoundException {
 
         File f = new File("giris.txt");
         int donmeSayaci=0;
@@ -132,8 +132,9 @@ public class Kuyruk {
 
     //Ekran fonksiyonu ile yapılan işemler görüntülenir.
     public void ekran(int saniye, int Statament, Process activeProcess) {
-
+    	
         // 0 başladı / 1 yürütülüyor / 2 askıda / 3 sonlandı / 4 zamanaşımı
+    	System.out.print( "\u001b[38;5;" + activeProcess.Id + "m");
         switch (Statament) {
             case 0:
                 System.out.println(saniye + " sn process başladı\t\t(id:" + activeProcess.Id + "\töncelik:" + activeProcess.oncelik + "\tkalan süre:" + activeProcess.calismaZamani +")");
@@ -148,7 +149,7 @@ public class Kuyruk {
                 System.out.println(saniye + " sn process sonlandı\t\t(id:" + activeProcess.Id + "\töncelik:" + activeProcess.oncelik + "\tkalan süre:" + activeProcess.calismaZamani+")" );
                 break;
             case 4:
-                System.out.println(saniye + " sn process zamanaşımı\t\t(id:" + activeProcess.Id + "\töncelik:" + activeProcess.oncelik + "\tkalan süre:" + activeProcess.calismaZamani+")" );
+                System.out.println(saniye + " sn process zamanaşımı\t(id:" + activeProcess.Id + "\töncelik:" + activeProcess.oncelik + "\tkalan süre:" + activeProcess.calismaZamani+")" );
                 break;
         }
     }
@@ -295,4 +296,5 @@ public class Kuyruk {
         }
         return list;
     }
+
 }
