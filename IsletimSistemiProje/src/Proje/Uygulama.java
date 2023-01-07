@@ -9,7 +9,7 @@ import static Proje.Kuyruk.satirsayisi;
 
 public class Uygulama {
     public void Program() throws FileNotFoundException {
-    	
+
     	System.out.print("Okutulacak dosya adını giriniz:");
     	Scanner Dosya=new Scanner(System.in);
     	String dosyaYolu=Dosya.nextLine();

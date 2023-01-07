@@ -19,7 +19,7 @@ public class Kuyruk {
         pio3Evrensel = new ArrayList<Process>();
     }
 
-    public static int satirsayisi(File f) throws FileNotFoundException {  //Programın satır sayısı bulunur ve işlenmek için
+    public static int satirsayisi(File f) throws FileNotFoundException {  //Programın satır sayısı bulunur.
 
         Scanner dosya = new Scanner(f);
         int satir = 0;
@@ -110,7 +110,7 @@ public class Kuyruk {
 
 
     public ArrayList<ArrayList> kuyrukCheck(ArrayList<Process> kuyrukSaniye, ArrayList<Process> realTimeLastList, ArrayList<Process> userJobLastList) {
-
+    // Prosesleri önceliklerine göre kuyruklara yerleştirir.
         for (Process eleman : kuyrukSaniye) {
 
             switch (eleman.oncelik) {
@@ -130,9 +130,9 @@ public class Kuyruk {
         return listeFull;                       //Kapsüllenen veri Uygulamaya gönderildi.
     }
 
-    //Ekran fonksiyonu ile yapılan işemler görüntülenir.
+    //Ekran fonksiyonu ile yapılan işlemler görüntülenir.
     public void ekran(int saniye, int Statament, Process activeProcess) {
-    	
+    	//id'ye özgü rengini verir ve prosesin durumunu yazdırır.
         // 0 başladı / 1 yürütülüyor / 2 askıda / 3 sonlandı / 4 zamanaşımı
     	System.out.print( "\u001b[38;5;" + activeProcess.Id + "m");
         switch (Statament) {
@@ -155,7 +155,7 @@ public class Kuyruk {
     }
 
 
-    //realTime kuyruğu 0 öncelikli prosesleri dökümanda verildiği gibi işler.
+    //realTime kuyruğu 0 öncelikli prosesleri dokümanda verildiği gibi işler.
     public Process realTime(ArrayList<Process> realTimeLastList, Process activeProcess, int saniye) {
 
 
